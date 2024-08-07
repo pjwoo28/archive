@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Route Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        input[type="text"] {
+            width: calc(50% - 10px);
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Destination Route Planner</h1>
+
+<div class="container">
+    <form id="routeForm">
+        <input type="text" name="destination1" placeholder="Destination 1">
+        <input type="text" name="destination2" placeholder="Destination 2">
+        <!-- Add more input fields for additional destinations -->
+        <input type="submit" value="Plan Route">
+    </form>
+    <div id="routeResult"></div>
+</div>
+
+<script>
+    document.getElementById("routeForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        // You can access the input values and process them here
+        // For example, you can calculate the route and display the result
+        const destination1 = document.querySelector('input[name="destination1"]').value;
+        const destination2 = document.querySelector('input[name="destination2"]').value;
+        // Process the destinations and calculate the route
+        const route = calculateRoute(destination1, destination2);
+        // Display the route result
+        const routeResult = document.getElementById("routeResult");
+        routeResult.innerHTML = "<h2>Optimal Route:</h2>" + route.join(" -> ");
+    });
+
+    function calculateRoute(destination1, destination2) {
+        // Here, you would implement your custom algorithm to calculate the route
+        // For simplicity, let's assume a simple route calculation based on the order of destinations
+        return [destination1, destination2];
+    }
+</script>
+
+</body>
+</html>

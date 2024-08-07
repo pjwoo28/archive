@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Deco Photocard Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .game-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 400px;
+        }
+
+        .photocard-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin-right: 50px;
+        }
+
+        .photocard img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+        }
+
+        .decorations-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .decorations-container h2 {
+            margin-bottom: 10px;
+        }
+
+        .decoration {
+            margin: 10px 0;
+            cursor: pointer;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            border: solid 2px #000000;
+            width: 530px;
+        }
+
+        .decoration img {
+            width: 100px; /* Ukuran yang konsisten */
+            height: auto;
+        }
+
+        .draggable {
+            position: absolute;
+            cursor: pointer;
+            pointer-events: auto; /* Pastikan event pointer diterima */
+        }
+
+        .fa-trash-can {
+            margin-top: 200px;
+            font-size: 30px;
+        }
+
+        .fa-download {
+            padding: 10px 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: rgb(0, 0, 0); /* Warna teks tombol */
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: -90px;
+            margin-top: -40px;
+        }
+
+        /* Box Transparan */
+        .box {
+            position: absolute;
+            top: -25px;
+            left: -25px;
+            width: 350px; /* Sesuaikan lebar box dengan lebar photocard */
+            height: 520px; /* Sesuaikan tinggi box dengan tinggi photocard */
+            border: 2px dashed rgba(0, 0, 0, 0.5); /* Border transparan */
+            box-sizing: border-box;
+            pointer-events: none; /* Tidak bisa diklik */
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="photocard-container">
+            <div class="photocard" id="photocard">
+                <img src="woo profile.jpeg" alt="Photocard" id="base-photo">
+                <div class="box"></div> <!-- Box transparan -->
+            </div>
+        </div>
+        <div class="decorations-container">
+            <h2>Decorations</h2>
+            <div class="decoration" id="deco">
+                <img src="deco 1.png" alt="Sticker 1">
+                <img src="deco 2.png" alt="Sticker 2">
+                <img src="deco 3.png" alt="Sticker 3">
+                <img src="deco 4.png" alt="Sticker 4">
+                <img src="deco 5.png" alt="Sticker 5">
+                <img src="deco 6.png" alt="Sticker 6">
+                <img src="deco 7.png" alt="Sticker 7">
+                <img src="deco 8.png" alt="Sticker 8">
+                <img src="deco 9.png" alt="Sticker 9">
+            </div>
+            <div id="trash-bin" class="trash-bin">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <div id="download" class="download">
+                <i class="fa-solid fa-download"></i>
+            </div>
+        </div>        
+    </div>
+    <canvas id="canvas" width="300" height="400" style="display: none;"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const photocard = document.getElementById('photocard');
+            const decorations = document.querySelectorAll('.decoration img');
+            const trashBin = document.getElementById('trash-bin');
+            let draggedElement = null;
+
+            // Menambahkan event listener untuk gambar dekorasi
+            decorations.forEach(deco => {
+                deco.addEventListener('click', (event) => {
+                    const src = event.target.src;
+                    const clone = document.createElement('img');
+                    clone.src = src;
+                    clone.classList.add('draggable');
+                    clone.setAttribute('draggable', 'true'); // Set draggable attribute
+                    clone.style.width = '140px';  // Sesuaikan ukuran lebar gambar kloning
+                    clone.style.height = 'auto';  // Sesuaikan ukuran tinggi gambar kloning
+                    clone.style.position = 'absolute';  // Posisi harus absolute agar bisa dipindah-pindah
+                    clone.style.left = (event.clientX - photocard.getBoundingClientRect().left) + 'px'; // Posisi awal berdasarkan klik
+                    clone.style.top = (event.clientY - photocard.getBoundingClientRect().top) + 'px'; // Posisi awal berdasarkan klik
+                    photocard.appendChild(clone);
+
+                    makeDraggable(clone);
+                });
+            });
+
+            function makeDraggable(element) {
+                let offsetX, offsetY, isDragging = false;
+
+                element.addEventListener('mousedown', (event) => {
+                    if (event.offsetX < element.clientWidth && event.offsetY < element.clientHeight) {
+                        isDragging = true;
+                        offsetX = event.clientX - parseFloat(element.style.left);
+                        offsetY = event.clientY - parseFloat(element.style.top);
+                        element.style.cursor = 'grabbing';
+                    }
+                });
+
+                document.addEventListener('mousemove', (event) => {
+                    if (isDragging) {
+                        element.style.left = (event.clientX - offsetX) + 'px';
+                        element.style.top = (event.clientY - offsetY) + 'px';
+                    }
+                });
+
+                document.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        element.style.cursor = 'grab';
+                    }
+                });
+
+                element.addEventListener('dragstart', (e) => {
+                    draggedElement = element;
+                    e.dataTransfer.setData('text/plain', e.target.src);
+                    e.target.classList.add('dragging');
+                });
+
+                element.addEventListener('dragend', (e) => {
+                    e.target.classList.remove('dragging');
+                    draggedElement = null;
+                });
+            }
+
+            trashBin.addEventListener('dragover', (e) => {
+                e.preventDefault(); // Prevent default behavior to allow drop
+            });
+
+            trashBin.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (draggedElement) {
+                    // Hapus elemen yang di-drag jika berada di atas ikon tong sampah
+                    draggedElement.remove();
+                    draggedElement = null;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

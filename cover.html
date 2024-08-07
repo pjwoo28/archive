@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeongwoo's Cover</title>
+    <link rel="stylesheet" href="cover.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+      <div class="bannerwoo">
+        <img src="banner.png" alt="woo banner">
+      </div>
+
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-bar" placeholder="Search">
+        <i class="fa fa-search" id="search-icon"></i>
+      </div>
+
+      <div class="icon-container">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+        <i class="fas fa-user-circle"></i>
+      </div>
+
+      <div class="outer-container">
+          <div class="thumbnail-container" id="thumbnail-container">
+            <figure class="item" id="item">   
+              <img src="thumbnail 1.jpg" alt="thumbnail 1">
+              <video controls class="overlay-video gallant" id="overlay1" muted playsinline>
+                <source src="thumbnail 1.mp4" type="video/mp4">
+              </video>
+              <figcaption>PARK JEONGWOO (박정우) - Weight in Gold by Gallant</figcaption>
+            </figure> 
+            <figure class="item" id="item">  
+              <img src="thumbnail 2.jpg" alt="thumbnail 2">
+              <video controls class="overlay-video" id="overlay2" muted playsinline>
+                <source src="thumbnail 2.mp4" type="video/mp4">
+              </video>
+              <figcaption>PARK JEONGWOO (박정우) - Always by Daniel Caesar</figcaption>
+            </figure>
+            <figure class="item" id="item">
+              <img src="thumbnail 3.jpg" alt="thumbnail 3">
+              <video controls class="overlay-video" id="overlay3" muted playsinline>
+                <source src="thumbnail 3.mp4" type="video/mp4">
+              </video>
+              <figcaption>PARK JEONGWOO (박정우) - I Feel Love by Thama</figcaption>
+            </figure>
+            <figure class="item" id="item">  
+              <img src="thumbnail 4.jpg" alt="thumbnail 4">
+              <video controls class="overlay-video" id="overlay4" muted playsinline>
+                <source src="thumbnail 4.mp4" type="video/mp4">
+              </video>
+              <figcaption>PARK JEONGWOO (박정우) - Superstar by Ruben Studdard</figcaption>
+            </figure>
+            <figure class="item" id="item">
+              <img src="thumbnail 5.jpg" alt="thumbnail 5">
+              <figcaption>PARK JEONGWOO (박정우) - Stack it Up by Liam Payne (ft. HARUTO)</figcaption>
+            </figure>
+            <figure class="item" id="item">
+              <img src="thumbnail 6.jpg" alt="thumbnail 6">
+              <figcaption>PARK JEONGWOO (박정우) - If It Were Me by Na Yoon Kwon</figcaption>
+            </figure>
+            <figure class="item" id="item">
+              <img src="thumbnail 7.jpg" alt="thumbnail 7">
+              <figcaption>PARK JEONGWOO (박정우) - Oh Yeah by GD X TOP X Park Bom (ft. HARUTO)</figcaption>
+            </figure>
+        </div>
+      </div>
+
+  <script>
+  //script auto pause video//
+  const videos = document.querySelectorAll('.overlay-video');
+
+    videos.forEach(video => {
+        video.addEventListener('play', () => {
+            videos.forEach(v => {
+                if (v !== video) {
+                    v.pause ();
+                    v.currentTime = 0;
+                }
+            });
+        });
+    });
+  
+  //script video auto unmute dan tetap display saat video diputar//
+      videos.forEach(video => {
+        video.addEventListener('play', () => {
+            video.muted = false; // Unmute saat diputar
+            video.style.opacity = '1';
+        });
+
+        video.addEventListener('pause', () => {
+            video.muted = true; // Kembali mute saat dijeda
+            video.style.opacity = '0';
+        });
+
+        video.addEventListener('ended', () => {
+            video.muted = true; // Kembali mute saat video berakhir
+            video.style.opacity = '0';
+            video.currentTime = 0;
+        });
+
+        video.addEventListener('mouseenter', () => {
+            video.style.opacity = '1'; // Tampilkan video saat di-hover
+        });
+
+        video.addEventListener('mouseleave', () => {
+            if (video.paused) {
+                video.style.opacity = '0'; // Sembunyikan video saat mouse keluar dan video dijeda
+            }
+        });
+    });
+
+    //script search bar relevant search//
+    document.getElementById('search-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Mencegah aksi default dari Enter jika ada
+                sortVideos();
+            }
+        });
+
+        function sortVideos() {
+            const searchBar = document.getElementById('search-input').value.toLowerCase();
+            const videoList = document.getElementById('thumbnail-container');
+            const videos = Array.from(videoList.getElementsByClassName('item'));
+
+            videos.sort((a, b) => {
+                const aTitle = a.querySelector('figcaption').textContent.toLowerCase();
+                const bTitle = b.querySelector('figcaption').textContent.toLowerCase();
+
+                // Urutkan berdasarkan relevansi
+                return (aTitle.includes(searchBar) ? -1 : 1) - (bTitle.includes(searchBar) ? -1 : 1);
+            });
+
+            // Menghapus semua video dari daftar dan menambahkannya kembali dengan urutan yang diperbarui
+            videos.forEach(video => videoList.appendChild(video));
+        }
+  </script>
+</body>
+</html>

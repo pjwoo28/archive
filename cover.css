@@ -1,0 +1,116 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.bannerwoo {
+    display: inline-block; /* Agar foto tidak memengaruhi elemen lain */
+}
+
+.bannerwoo img {
+    display: block; /* Menghilangkan jarak di bawah gambar (default display inline) */
+    max-width: 40%; /* Memastikan gambar tidak melampaui lebar kontainer */
+    height: auto;
+    margin-left: 65px;
+    margin-top: -9px;
+}
+
+.search-bar {
+    width: 700px;
+    position: absolute;
+    padding: 15px 10px 15px 20px; 
+    border: 1.5px solid #3a3a3a;
+    border-radius: 50px;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+    left: 385px;
+    top: 44px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 525;
+    font-size: 14px;
+}
+
+.search-bar:focus {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.fa-search {
+    position: absolute;
+    left: 1075px;
+    top: 68px;
+    transform: translateY(-50%);
+    color: #000000;
+    z-index: 3;
+}
+
+.outer-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 35px;
+    margin-top: -15px;
+}
+
+.thumbnail-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.thumbnail-container img {
+    width: 350px;
+    height: auto;
+    margin-right: -65px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+.overlay-video {
+    position: absolute;
+    width: 350px;
+    height: auto;
+    left: 0;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.item:hover .overlay-video {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+figcaption {
+    margin-top: -15px;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    width: 305px;
+    word-wrap: break-word;
+}
+
+.item {
+    position: relative;
+}
+
+.fa-ellipsis-vertical {
+    position: absolute;
+    top: 33px;
+    left: 1170px;
+    font-size: 30px; /* Ukuran ikon */
+    color: #333; /* Warna ikon */
+    margin: 20px; /* Margin sekitar ikon */
+    transition: color 0.3s ease, transform 0.3s ease; /* Transisi halus untuk efek hover */
+}
+
+.fa-user-circle { position: absolute;
+    top: 33px;
+    left: 1120px;
+    font-size: 30px; /* Ukuran ikon */
+    color: #333; /* Warna ikon */
+    margin: 20px; /* Margin sekitar ikon */
+    transition: color 0.3s ease, transform 0.3s ease; /* Transisi halus untuk efek hover */
+}

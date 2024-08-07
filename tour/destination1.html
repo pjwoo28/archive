@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: block;
+            margin: 0 auto; /* Center horizontally */
+        }
+
+        /* Hide all images by default */
+        .slideshow {
+            display: none;
+            width: auto; /* Ensure images don't exceed container width */
+            height: 400px; /* Set a fixed height for all images */
+            margin: 0 auto; /* Center the images horizontally */
+        }
+
+            /* Center container and images */
+        #slideshow-container {
+            position: relative;
+            margin: auto;
+            max-width: 800px; /* Adjust this value as needed */
+            overflow: hidden; /* Hide overflow images */
+        }
+
+        /* Position left and right arrows */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -50px; /* Center vertically */
+            padding: 16px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .prev {
+            left: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        /* Position caption text */
+        .text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>KL Bird Park</h1>
+    <img src="images/image10.jpeg" alt="KL Bird Park">
+    <h2>Description</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce hendrerit orci eu nulla feugiat, sed laoreet odio tincidunt.</p>
+    <h2>Address</h2>
+    <p>123 Destination Street, City, Country</p>
+    <h2>Photos</h2>
+    <div id="slideshow-container">
+        <!-- Add left and right arrows for navigation -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    
+        <!-- Add each photo as a slide with the "slideshow" class -->
+        <img class="slideshow" src="images/image1.jpg" alt="Photo 1">
+        <img class="slideshow" src="images/image2.jpeg" alt="Photo 2">
+        <img class="slideshow" src="images/image3.jpeg" alt="Photo 3">
+        <img class="slideshow" src="images/image4.jpeg" alt="Photo 4">
+        <img class="slideshow" src="images/image5.jpeg" alt="Photo 5">
+        <img class="slideshow" src="images/image6.jpeg" alt="Photo 6">
+        <img class="slideshow" src="images/image7.jpeg" alt="Photo 7">
+        <img class="slideshow" src="images/image8.jpeg" alt="Photo 8">
+        <!-- Add more photos as needed -->
+    </div>
+
+    <br><h2>Ticket Price</h2>
+    <p>RM 85.00 per person (Adult)</p>
+    
+    <h2>Operating Hours</h2>
+    <p>Monday - Sunday: 9:00 AM - 6:00 PM</p>
+    
+    <h2>Contact Information</h2>
+    <p> Whatsapp: <a href="https://wa.me/60128701233">+6012-8701233</a><br>Website: <a href="https://klbirdpark.com/">https://klbirdpark.com/</a></a></p>
+    
+    <h2>Directions</h2>
+    <p>Follow the main road until you reach the destination. Parking available onsite.</p>
+    
+    <h2>Facilities</h2>
+    <p>Restrooms, Parking, Souvenir Shop</p>
+    
+    <h2>Special Notes</h2>
+    <p>Do not forget to apply sunscreen. Do not use thick clothes. If you want to watch bird show, come at 12.00 PM.</p>
+</div>
+
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("slideshow");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+    }
+
+    // Automatic slideshow
+    var slideIndexAuto = 0;
+    showSlidesAuto();
+
+    function showSlidesAuto() {
+        var i;
+        var slides = document.getElementsByClassName("slideshow");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndexAuto++;
+        if (slideIndexAuto > slides.length) { slideIndexAuto = 1 }
+        slides[slideIndexAuto - 1].style.display = "block";
+        setTimeout(showSlidesAuto, 4000); // Change image every 2 seconds (2000 milliseconds)
+    }
+</script>
+
+
+</body>
+</html>

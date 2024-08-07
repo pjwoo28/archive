@@ -1,0 +1,27 @@
+body { margin: 0; padding: 0; }
+
+.background-image { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('street TOKYO 4.jpeg') center/cover; z-index: -1;}
+.background-box { position: fixed; left: 0; right: 0; margin: auto; top: -10%; height: 140%; width: 90%; padding: 20px; border-radius: 20px; background-color: rgba(128, 128, 128, 0.514); z-index: 0; }
+
+.archive-box { position: fixed; left: 0; right: 0; margin: auto; top: 100px; height: 400px; width: 70%; border-radius: 20px; background-color: rgb(213, 213, 213); z-index: 1; }
+.archive-title { font-size: 28px; font-family: "Roboto", sans-serif; font-weight: 900; margin-top: 5%;}
+.folder { display: flex; flex-wrap: wrap; justify-content: center; margin: 10px; cursor: pointer; }
+.folder-icon { font-size: 240px; margin-bottom: -25px; color: gray; }
+
+.search-container { display: none; position: relative; text-align: center; margin-top: 20px; top: 600px; z-index: 3;}
+.search-bar { width: 1000px; height: 25px; padding: 10px 10px 10px 45px; border-radius: 20px; border: 1px solid transparent; box-shadow: 0 0 0 1px #fff; font-size: 16px; font-family: "Roboto", sans-serif; font-weight: 700; }
+.search-bar:focus { outline: none; border-color: rgb(52, 52, 52); border-width: 2px; }
+.search-icon {position: absolute; color:rgb(52, 52, 52); top: 50%; transform: translateY(-50%); cursor: pointer; right: 1125px; }
+.sort-icon { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); cursor: pointer; color: rgb(52, 52, 52); }
+.sort-icon { position: absolute; color: rgb(52, 52, 52); top: 50%; transform: translateY(-50%); cursor: pointer;  right: 125px; }
+.dropdown {display: none; position: absolute; top: 100%; right: 90px; background: white; border: 1px solid #ccc; border-radius: 5px; z-index: 100; }
+.dropdown-item { padding: 10px 20px; font-family: "Roboto", sans-serif; font-weight: 500; cursor: pointer; }
+.divider-line { border-bottom: 1.5px solid rgba(74, 74, 74, 0.274); }
+.dropdown-item:hover { background-color: rgba(0, 0, 0, 0.1); }
+
+.images-box { display: none; top: 50%; height: auto; width: 80%; z-index: 1; background: white; padding: 20px; justify-content: center; align-items: center;}
+.container { text-align: center; padding-top: 100px; position: relative; z-index: 1; }
+.image-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+.image-container img { width: calc(50% - 20px); max-height: 60vh; border-radius: 10px; margin: 10px; position: relative; }
+.image-caption-container { text-align: left; height: 10px; margin-bottom: 385px; }
+.image-caption { display: block; font-size: 14px; font-weight: 700; padding-left: 10px; }
